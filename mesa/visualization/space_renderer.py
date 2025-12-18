@@ -211,8 +211,8 @@ class SpaceRenderer:
         """Setup property layers on the space without drawing.
 
         Args:
-            propertylayer_portrayal (Callable | dict | PropertyLayerStyle): Function that returns PropertyLayerStyle,
-                PropertyLayerStyle instance, or dict with portrayal parameters.
+            propertylayer_portrayal (Callable | dict | PropertyLayerStyle): A PropertyLayerStyle,
+                a function that produces a PropertyLayerStyle instance, or a dictionary specifying portrayal parameters.
 
         Returns:
             SpaceRenderer: The current instance for method chaining.
@@ -287,8 +287,9 @@ class SpaceRenderer:
         """Draw property layers on the space.
 
         Args:
-            propertylayer_portrayal: (Deprecated) Function that takes a property layer and returns PropertyLayerStyle.
-                                   Use setup_propertylayer() instead.
+            propertylayer_portrayal: (Deprecated) A PropertyLayerStyle, a function that produces
+            a PropertyLayerStyle instance, or a dictionary specifying portrayal parameters.
+            Use setup_propertylayer() instead.
 
         Returns:
             The visual representation of the property layers.
@@ -381,12 +382,9 @@ class SpaceRenderer:
         """Render the complete space with structure, agents, and property layers.
 
         Args:
-            agent_portrayal (Callable | None): (Deprecated) Function that returns AgentPortrayalStyle.
-                If None, agents won't be drawn. Use setup_agents() instead.
-            propertylayer_portrayal (Callable | dict | PropertyLayerStyle | None): (Deprecated) Function that returns
-                PropertyLayerStyle, PropertyLayerStyle instance, or dict with portrayal parameters.
-                If None, property layers won't be drawn. Use setup_propertylayer() instead.
-            **kwargs: (Deprecated) Additional keyword arguments. Use setup_structure() instead.
+            agent_portrayal: (Deprecated) Function for agent portrayal. Use setup_agents() instead.
+            propertylayer_portrayal: (Deprecated) Function for property layer portrayal. Use setup_propertylayer() instead.
+            **kwargs: (Deprecated) Additional keyword arguments.
         """
         if agent_portrayal is not None or propertylayer_portrayal is not None or kwargs:
             warnings.warn(
