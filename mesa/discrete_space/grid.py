@@ -147,8 +147,8 @@ class Grid(DiscreteSpace[T], HasPropertyLayers):
         # FIXME:: because empties list needs to be rebuild each time
         # This method is based on Agents.jl's random_empty() implementation. See
         # https://github.com/JuliaDynamics/Agents.jl/pull/541. For the discussion, see
-        # https://github.com/projectmesa/mesa/issues/1052 and
-        # https://github.com/projectmesa/mesa/pull/1565. The cutoff value provided
+        # https://github.com/mesa/mesa/issues/1052 and
+        # https://github.com/mesa/mesa/pull/1565. The cutoff value provided
         # is the break-even comparison with the time taken in the else branching point.
         if self._try_random:
             while True:
@@ -268,7 +268,14 @@ class OrthogonalVonNeumannGrid(Grid[T]):
 
 
 class HexGrid(Grid[T]):
-    """A Grid with hexagonal tilling of the space."""
+    """A Grid with hexagonal tilling of the space.
+
+    Note:
+        When torus=True, both width and height must be even.
+
+    Raises:
+        ValueError: If torus=True and either width or height is odd.
+    """
 
     def _connect_cells_2d(self) -> None:
         # fmt: off
@@ -296,3 +303,7 @@ class HexGrid(Grid[T]):
         super()._validate_parameters()
         if len(self.dimensions) != 2:
             raise ValueError("HexGrid must have exactly 2 dimensions.")
+        if self.torus and (self.width % 2 != 0 or self.height % 2 != 0):
+            raise ValueError(
+                "HexGrid with torus=True requires both width and height to be even."
+            )
