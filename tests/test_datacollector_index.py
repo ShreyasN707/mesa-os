@@ -1,4 +1,3 @@
-
 """Tests for DataCollector index alignment regression."""
 
 import os
@@ -13,6 +12,7 @@ import mesa
 
 class TestDataCollectorIndex(unittest.TestCase):
     """Regression tests for DataCollector index consistency."""
+
     def test_model_and_agent_dataframe_alignment(self):
         """Regression test for inconsistent DataCollector indexes.
 
@@ -37,7 +37,7 @@ class TestDataCollectorIndex(unittest.TestCase):
 
                 self.datacollector = mesa.DataCollector(
                     model_reporters={"ModelStep": lambda m: m.steps},
-                    agent_reporters={"Wealth": "wealth"}
+                    agent_reporters={"Wealth": "wealth"},
                 )
 
             def step(self):
@@ -66,8 +66,9 @@ class TestDataCollectorIndex(unittest.TestCase):
         self.assertEqual(
             list(model_df.index),
             list(agent_steps),
-            "Model DataFrame index does not match Agent DataFrame Step index"
+            "Model DataFrame index does not match Agent DataFrame Step index",
         )
+
 
 if __name__ == "__main__":
     unittest.main()
