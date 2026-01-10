@@ -293,13 +293,13 @@ def test_solara_viz_required_params():
     # Note: We must pass an instance to SolaraViz
     model = MoneyModel(n=10, width=10, height=10)
 
-    # We test ModelCreator directly for the failure case because SolaraViz
-    # renders it inside a Sidebar, which might swallow exceptions in headless tests.
+    # Missing required model parameters should raise a ValueError
     with pytest.raises(ValueError, match="Missing required model parameter"):
         solara.render(
             ModelCreator(solara.reactive(model), user_params={}),
             handle_error=False,
         )
+
 
     # 2. Test correct parameters passed via model_params (should not raise)
     valid_params = {
