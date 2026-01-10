@@ -300,7 +300,6 @@ def test_solara_viz_required_params():
             handle_error=False,
         )
 
-
     # 2. Test correct parameters passed via model_params (should not raise)
     valid_params = {
         "n": 10,
