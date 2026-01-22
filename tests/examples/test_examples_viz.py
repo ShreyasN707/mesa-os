@@ -49,7 +49,7 @@ def run_model_test(
         # Display and capture the initial visualizations
         display(space_viz)
         page_session.wait_for_selector("img")  # buffer for rendering
-        
+
         space_locator = page_session.locator("img").first
         space_locator.wait_for(state="attached")
         initial_space = space_locator.screenshot()
@@ -57,7 +57,7 @@ def run_model_test(
         if measure_config:
             display(graph_viz)
             page_session.wait_for_selector("img")
-            
+
             graph_locator = page_session.locator("img").last
             graph_locator.wait_for(state="attached")
             initial_graph = graph_locator.screenshot()
@@ -78,7 +78,7 @@ def run_model_test(
         # Display and capture the updated visualizations
         display(space_viz)
         page_session.wait_for_selector("img")
-        
+
         space_locator = page_session.locator("img").first
         space_locator.wait_for(state="attached")
         changed_space = space_locator.screenshot()
@@ -86,7 +86,7 @@ def run_model_test(
         if measure_config:
             display(graph_viz)
             page_session.wait_for_selector("img")
-            
+
             graph_locator = page_session.locator("img").last
             graph_locator.wait_for(state="attached")
             changed_graph = graph_locator.screenshot()
