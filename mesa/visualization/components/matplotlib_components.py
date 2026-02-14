@@ -153,6 +153,14 @@ def PlotMatplotlib(
     update_counter.get()
     fig = Figure()
     ax = fig.subplots()
+
+    if not hasattr(model, "datacollector"):
+        if hasattr(model, "data_registry"):
+            raise NotImplementedError(
+                "Plotting with DataRegistry is not yet supported. Please use DataCollector."
+            )
+        raise AttributeError("Model must have a DataCollector for plotting.")
+
     df = model.datacollector.get_model_vars_dataframe()
     if isinstance(measure, str):
         ax.plot(df.loc[:, measure])

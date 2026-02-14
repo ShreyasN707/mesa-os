@@ -510,6 +510,13 @@ def PlotAltair(model, measure, post_process: Callable | None = None, grid=False)
         solara.FigureAltair: A component for rendering the plot.
     """
     update_counter.get()
+    if not hasattr(model, "datacollector"):
+        if hasattr(model, "data_registry"):
+            raise NotImplementedError(
+                "Plotting with DataRegistry is not yet supported. Please use DataCollector."
+            )
+        raise AttributeError("Model must have a DataCollector for plotting.")
+
     df = model.datacollector.get_model_vars_dataframe().reset_index()
     df = df.rename(columns={"index": "Step"})
 

@@ -261,11 +261,16 @@ def _collect_data(
     step: int,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Collect model and agent data from a model using mesas datacollector."""
-    if not hasattr(model, "datacollector"):
+    if hasattr(model, "datacollector"):
+        dc = model.datacollector
+    elif hasattr(model, "data_registry"):
+        # DataRegistry is present but not yet supported by BatchRunner.
+        # Return empty data to allow the run to proceed without crashing.
+        return {}, []
+    else:
         raise AttributeError(
             "The model does not have a datacollector attribute. Please add a DataCollector to your model."
         )
-    dc = model.datacollector
 
     # Check if modern DataCollector with _collection_steps exists (handles time dilation)
     if hasattr(dc, "_collection_steps"):
