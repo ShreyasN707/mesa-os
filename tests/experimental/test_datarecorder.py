@@ -308,7 +308,6 @@ def test_data_recorder_window_eviction_dict():
 
     storage = recorder.storage["model_data"]
 
-
     assert len(storage.blocks) == 2
 
     df = recorder.get_table_dataframe("model_data")
@@ -349,7 +348,6 @@ def test_modeldataset_window_eviction_no_valueerror():
     assert len(df) == 2
     assert "model_val" in df.columns
     assert "time" in df.columns
-
 
 
 def test_data_recorder_window_eviction_custom():
