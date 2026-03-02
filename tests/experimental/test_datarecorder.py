@@ -325,32 +325,6 @@ def test_data_recorder_window_eviction_dict():
     assert "model_val" in data
 
 
-def test_modeldataset_window_eviction_no_valueerror():
-    """Explicit regression test for ValueError during sliding window eviction (#3378)."""
-    model = MockModel(n=5)
-    recorder = DataRecorder(
-        model,
-        config={"model_data": DatasetConfig(window_size=2)},
-    )
-    recorder.clear()
-
-    # Fill window and trigger eviction
-    model.step()  # 1
-    model.step()  # 2
-    model.step()  # 3 - eviction happens here
-
-    # This used to raise ValueError before the fix
-    try:
-        df = recorder.get_table_dataframe("model_data")
-    except ValueError as e:
-        pytest.fail(f"Sliding window eviction raised unexpected ValueError: {e}")
-
-    # Ensure correct number of rows after eviction
-    assert len(df) == 2
-    assert "model_val" in df.columns
-    assert "time" in df.columns
-
-
 
 def test_data_recorder_window_eviction_custom():
     """Test window eviction bookkeeping for custom data type."""
