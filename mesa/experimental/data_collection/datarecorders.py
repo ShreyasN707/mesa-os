@@ -221,7 +221,8 @@ class DataRecorder(BaseDataRecorder):
     def _convert_modelDataSet(self, storage: DatasetStorage) -> pd.DataFrame:
         """Convert model dict blocks to DataFrame."""
         if not storage.blocks:
-            return pd.DataFrame(columns=storage.metadata.get("columns", []))
+            columns = storage.metadata.get("columns", [])
+            return pd.DataFrame(columns=[*columns, "time"])
 
         rows = [{**data, "time": time} for time, data in storage.blocks]
         return pd.DataFrame(rows)
